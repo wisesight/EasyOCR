@@ -7,8 +7,8 @@ import torchvision.transforms as transforms
 import numpy as np
 from collections import OrderedDict
 
-from .model import Model
-from .utils import CTCLabelConverter
+from model import Model
+from utils import CTCLabelConverter
 import math
 
 def contrast_grey(img):

@@ -102,3 +102,10 @@ ENV/
 
 # macOS
 *.DS_Store
+
+# models
+craft_mlt_25k.pth
+thai.pth
+model_store/
+logs/
+.vscode/

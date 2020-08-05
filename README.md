@@ -260,3 +260,51 @@ Contrast, Text Detection and Bounding Box Merging.
 > * **add_margin** (float, default = 0.1) - Extend bounding boxes in all direction by certain value. This is important for language with complex script (E.g. Thai).
 >
 > **Return** (list)
+
+## How to archive torchserve model
+#### Preparation
+1. Install torchserve
+```shell
+pip install torchserve torch-model-archiver
+```
+2. Download models to folder easyocr
+- [text detection model (CRAFT)](https://drive.google.com/file/d/1tdItXPoFFeKBtkxb9HBYdBGo-SyMg1m0/view?usp=sharing)
+- [thai model](https://drive.google.com/file/d/14BEuxcfmS0qWi3m9RsxwcUsjavM3rFMa/view?usp=sharing)
+
+#### Create Craft archive model
+```shell
+torch-model-archiver \
+ -f \
+ --model-name craft \
+ --version 1.0 \
+ --model-file ./easyocr/craft.py \
+ --serialized-file ./easyocr/craft_mlt_25k.pth \
+ --handler  ./serve/craft_handler.py \
+ --extra-files ./easyocr/craft_utils.py,./easyocr/detection.py,./easyocr/imgproc.py,./easyocr/modules.py \
+ --export-path model_store
+```
+#### Create EasyOCR archive model
+```shell
+torch-model-archiver \
+ -f \
+ --model-name easyocr \
+ --version 1.0 \
+ --model-file ./easyocr/model.py \
+ --serialized-file ./easyocr/thai.pth \
+ --handler  ./serve/easyocr_handler.py \
+ --extra-files ./easyocr/utils.py,./easyocr/recognition.py,./easyocr/model.py,./easyocr/modules.py,./easyocr/dict/th.txt,./easyocr/dict/en.txt \
+ --export-path model_store
+```
+
+#### How to start torchserve
+```shell
+torchserve --start --ncs --model-store model_store --models all --foreground
+```
+
+#### How to test Rest API
+```shell
+# Craft
+curl http://localhost:8080/predictions/craft -T ./example.png
+# EasyOCR
+curl -X POST http://localhost:8080/predictions/easyocr -F "data=@example.png" -F "boxes=[[232,20,282,20,282,46,232,46],[26,22,118,22,118,50,26,50],[122,21,190,24,189,48,121,44],[196,22,226,22,226,44,196,44]]"
+```

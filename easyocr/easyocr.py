@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from .detection import get_detector, get_textbox
-from .imgproc import loadImage
-from .recognition import get_recognizer, get_text
-from .utils import group_text_box, get_image_list, calculate_md5, get_paragraph, download_and_unzip
+from detection import get_detector, get_textbox
+from imgproc import loadImage
+from recognition import get_recognizer, get_text
+from utils import group_text_box, get_image_list, calculate_md5, get_paragraph, download_and_unzip
 from bidi.algorithm import get_display
 import numpy as np
 import cv2
