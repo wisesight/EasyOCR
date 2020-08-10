@@ -290,7 +290,7 @@ torch-model-archiver \
 torch-model-archiver \
  -f \
  --model-name easyocr \
- --version 1.0 \
+ --version 1.1.7 \
  --model-file ./easyocr/model.py \
  --serialized-file ./easyocr/thai.pth \
  --handler  ./serve/easyocr_handler.py \

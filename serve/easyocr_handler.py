@@ -39,6 +39,8 @@ class EasyOCRHandler(object):
         if not os.path.isfile(model_def_path):
             raise RuntimeError("Missing the model definition file")
 
+        os.environ["LRU_CACHE_CAPACITY"] = "1"
+
         # TODO: clear this
         lang_list = ['th', 'en']
         self.character = '''¢£¤¥!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~ abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZกขคฆงจฉชซฌญฎฏฐฑฒณดตถทธนบปผฝพฟภมยรลวศษสหฬอฮฤเแโใไะาุูิีืึั่้๊๋็์ำํฺฯๆ0123456789๑๒๓๔๕๖๗๘๙'''
